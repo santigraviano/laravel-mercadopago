@@ -1,0 +1,14 @@
+{
+    "name": "santigraviano/laravel-mercadopago",
+    "description": "Mercado Pago API SDK v0.5.2 for Laravel",
+    "keywords": ["laravel", "mercadopago", "sdk"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Santiago Graviano",
+            "email": "santiago.graviano@gmail.com"
+        }
+    ],
+    "require": {
+        "ext-curl": "*"
+    },
