@@ -12,3 +12,9 @@
     "require": {
         "ext-curl": "*"
     },
+    "autoload": {
+        "psr-4": {
+            "SantiGraviano\\LaravelMercadoPago\\": "src/"
+        }
+    }
+}
