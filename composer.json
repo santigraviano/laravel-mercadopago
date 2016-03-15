@@ -1,6 +1,8 @@
 {
     "name": "santigraviano/laravel-mercadopago",
     "description": "Mercado Pago API SDK v0.5.2 for Laravel",
+    "version": "0.0.1",
+    "minimum-stability": "dev",
     "keywords": ["laravel", "mercadopago", "sdk"],
     "license": "MIT",
     "authors": [
