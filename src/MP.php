@@ -1,6 +1,6 @@
 <?php
 
-namespace SantiGraviano\LaravelMercadoPago
+namespace SantiGraviano\LaravelMercadoPago;
 
 /**
  * MercadoPago Integration Library
