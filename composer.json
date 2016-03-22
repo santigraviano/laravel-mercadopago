@@ -1,16 +1,20 @@
 {
     "name": "santigraviano/laravel-mercadopago",
     "description": "Mercado Pago SDK v0.5.2 for Laravel",
-    "type": "sdk",
+    "keywords": ["laravel", "mercadopago", "facade"],
+    "license": "MIT",
     "require": {
         "ext-curl": "*"
     },
-    "license": "MIT",
     "authors": [
         {
             "name": "Santiago Graviano",
             "email": "santiago.graviano@gmail.com"
         }
     ],
-    "minimum-stability": "stable"
+    "autoload": {
+    	"psr-4": {
+    		"santigraviano\\mercadopago\\": "src/"
+    	}
+    }
 }
