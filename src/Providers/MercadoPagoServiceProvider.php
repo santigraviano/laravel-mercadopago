@@ -1,6 +1,6 @@
 <?php
 
-namespace SantiGraviano\LaravelMercadoPago\Providers
+namespace SantiGraviano\LaravelMercadoPago\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use SantiGraviano\LaravelMercadoPago\MP;
