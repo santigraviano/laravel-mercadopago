@@ -2,6 +2,8 @@
 
 namespace SantiGraviano\LaravelMercadoPago;
 
+use Exception;
+
 /**
  * MercadoPago Integration Library
  * Access MercadoPago for payments integration
