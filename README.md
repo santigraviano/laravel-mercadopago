@@ -135,9 +135,6 @@ class MercadoPagoController extends Controller
 
     MP::create_preapproval_payment($preapproval_data);
 
-    $subscription->mpid = $preapproval['response']['id'];
-    $subscription->save();
-
     return dd($preapproval);
   }
 ```
