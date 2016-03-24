@@ -100,3 +100,50 @@ class MercadoPagoController extends Controller
 
   }
 ```
+
+En este ejemplo vamos a crear una subscripción (débito automático), usando la Facade `MP` 
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use MP;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
+class MercadoPagoController extends Controller
+{
+  public function getCreatePreapproval()
+  {
+    $preapproval_data = [
+      'payer_email' => 'agariobadcell@gmail.com',
+      'back_url' => 'http://labhor.com.ar/laravel/public/preapproval',
+      'reason' => 'Subscripción a paquete premium',
+      'external_reference' => $subscription->id,
+      'auto_recurring' => [
+        'frequency' => 1,
+        'frequency_type' => 'months',
+        'transaction_amount' => 99,
+        'currency_id' => 'ARS',
+        'start_date' => str_replace('000000', '000', Carbon::now()->addHour()->format('Y-m-d\TH:i:s.uP')),
+        'end_date' => str_replace('000000', '000', Carbon::now()->addMonth()->format('Y-m-d\TH:i:s.uP')),
+      ],
+    ];
+
+    MP::create_preapproval_payment($preapproval_data);
+
+    $subscription->mpid = $preapproval['response']['id'];
+    $subscription->save();
+
+    return dd($preapproval);
+  }
+```
+
+En el ejemplo se puede ver el uso de la libreria `Carbon`, para especificar la fecha de comienzo de la subscripción y el termino de la misma, siendo de frecuencia mensual.
+
+A la fecha actual, via `Carbon` se le agrega una hora, ya que de otra manera MercadoPago puede dar la fecha como pasada.
+
+Ademas se reemplazan los `000000`  por `000` para que el formato sea aceptado por MercadoPago
