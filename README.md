@@ -128,8 +128,8 @@ class MercadoPagoController extends Controller
         'frequency_type' => 'months',
         'transaction_amount' => 99,
         'currency_id' => 'ARS',
-        'start_date' => str_replace('000000', '000', Carbon::now()->addHour()->format('Y-m-d\TH:i:s.uP')),
-        'end_date' => str_replace('000000', '000', Carbon::now()->addMonth()->format('Y-m-d\TH:i:s.uP')),
+        'start_date' => Carbon::now()->addHour()->format('Y-m-d\TH:i:s.BP'),
+        'end_date' => Carbon::now()->addMonth()->format('Y-m-d\TH:i:s.BP'),
       ],
     ];
 
@@ -142,5 +142,3 @@ class MercadoPagoController extends Controller
 En el ejemplo se puede ver el uso de la libreria `Carbon`, para especificar la fecha de comienzo de la subscripción y el termino de la misma, siendo de frecuencia mensual.
 
 A la fecha actual, via `Carbon` se le agrega una hora, ya que de otra manera MercadoPago puede dar la fecha como pasada.
-
-Ademas se reemplazan los `000000`  por `000` para que el formato sea aceptado por MercadoPago
