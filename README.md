@@ -4,6 +4,8 @@
 * [Configuración](#configuration)
 * [Como utilizar](#how-to)
 
+La compatibilidad con Laravel 5.3 fue probada con exito por [kikemarto](https://github.com/kikemarto)
+
 <a name="install"></a>
 ### Instalación
 
