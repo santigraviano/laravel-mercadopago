@@ -20,6 +20,8 @@ class MercadoPagoServiceProvider extends ServiceProvider
 		
 		$this->publishes([__DIR__.'/../config/mercadopago.php' => config_path('mercadopago.php')]);
 
+		$this->mp_app_mode   = config('mercadopago.app_mode');
+
 		$this->mp_app_id     = config('mercadopago.app_id');
 		$this->mp_app_secret = config('mercadopago.app_secret');
 
