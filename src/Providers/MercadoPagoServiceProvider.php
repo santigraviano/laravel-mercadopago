@@ -33,7 +33,9 @@ class MercadoPagoServiceProvider extends ServiceProvider
 	{
 		$this->app->singleton('MP', function(){
 			if ($this->mp_app_mode == 'transparent') {
-				return new MP($this->mp_app_access_token);
+				return new MP($this->mp_app_access_token)
+					->set_client_id($this->mp_app_id)
+					->set_client_secret($this->mp_app_secret);
 			} else {
 				return new MP($this->mp_app_id, $this->mp_app_secret);
 			}

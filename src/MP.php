@@ -40,6 +40,24 @@ class MP {
         }
     }
 
+    public function set_client_id($client_id)
+    {
+        $this->client_id = $client_id;
+        return $this;
+    }
+
+    public function set_client_secret($client_secret)
+    {
+        $this->client_secret = $client_secret;
+        return $this;
+    }
+
+    public function get_mp_connect_auth_url($redirectUri, $mpLocalize = "auth.mercadopago.com.br")
+    {
+        $redirectUri = urlencode($redirectUri);
+        return "https://{$mpLocalize}/authorization?client_id={$this->client_id}&response_type=code&platform_id=mp&redirect_uri={$redirectUri}";
+    }
+
     public function sandbox_mode($enable = NULL) {
         if (!is_null($enable)) {
             $this->sandbox = $enable === TRUE;
@@ -578,5 +596,14 @@ class MercadoPagoException extends Exception {
     public function __construct($message, $code = 500, Exception $previous = null) {
         // Default code 500
         parent::__construct($message, $code, $previous);
+    }
+
+    public function getErrorCode() {
+        $message = $this->getMessage()
+        $startPosition = strpos($message, '-');
+        $endPosition = strpos($message, ':');
+        $distance = $endPosition - $startPosition;
+        $numberString = substr($message, $startPosition, $distance);
+        return (int) $numberString;
     }
 }
