@@ -599,11 +599,12 @@ class MercadoPagoException extends Exception {
     }
 
     public function getErrorCode() {
-        $message = $this->getMessage()
-        $startPosition = strpos($message, '-');
+        $message = $this->getMessage();
+        $startChar = '-';
+        $startPosition = strpos($message, $startChar);
         $endPosition = strpos($message, ':');
         $distance = $endPosition - $startPosition;
-        $numberString = substr($message, $startPosition, $distance);
+        $numberString = trim(substr($message, $startPosition + strlen($startChar), $distance));
         return (int) $numberString;
     }
 }
