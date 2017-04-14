@@ -548,11 +548,9 @@ class MPRestClient {
                     }
                 }
             }
-
-            $mpException = new MercadoPagoException ($message, $response['status']);
-            $mpException->setResponseBody($response['response']);
-
-            throw $mpException;
+            
+            throw (new MercadoPagoException ($message, $response['status']))
+                ->setResponseBody($response['response']);
         }
 
         curl_close($connect);
