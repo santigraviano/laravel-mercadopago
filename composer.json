@@ -1,5 +1,5 @@
 {
-    "name": "gabfr/laravel-mercadopago",
+    "name": "santigraviano/laravel-mercadopago",
     "description": "Mercado Pago SDK v0.5.2 for Laravel",
     "keywords": ["laravel", "mercadopago", "sdk"],
     "license": "MIT",
