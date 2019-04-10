@@ -7,7 +7,7 @@ use Exception;
 /**
  * MercadoPago Integration Library
  * Access MercadoPago for payments integration
- * 
+ *
  * @author hcasatti
  *
  */
@@ -17,28 +17,8 @@ class MP {
 
     const version = "0.5.2";
 
-    private $client_id;
-    private $client_secret;
-    private $ll_access_token;
     private $access_data;
     private $sandbox = FALSE;
-
-    function __construct() {
-        $i = func_num_args(); 
-
-        if ($i > 2 || $i < 1) {
-            throw new MercadoPagoException("Invalid arguments. Use CLIENT_ID and CLIENT SECRET, or ACCESS_TOKEN");
-        }
-
-        if ($i == 1) {
-            $this->ll_access_token = func_get_arg(0);
-        }
-
-        if ($i == 2) {
-            $this->client_id = func_get_arg(0);
-            $this->client_secret = func_get_arg(1);
-        }
-    }
 
     public function sandbox_mode($enable = NULL) {
         if (!is_null($enable)) {
@@ -52,13 +32,12 @@ class MP {
      * Get Access Token for API use
      */
     public function get_access_token() {
-        if (isset ($this->ll_access_token) && !is_null($this->ll_access_token)) {
-            return $this->ll_access_token;
-        }
+        $client_id = config('mercadopago.app_id');
+        $client_secret = config('mercadopago.app_secret');
 
         $app_client_values = array(
-            'client_id' => $this->client_id,
-            'client_secret' => $this->client_secret,
+            'client_id' => $client_id,
+            'client_secret' => $client_secret,
             'grant_type' => 'client_credentials'
         );
 
@@ -86,7 +65,7 @@ class MP {
      */
     public function get_payment($id) {
         $uri_prefix = $this->sandbox ? "/sandbox" : "";
-            
+
         $request = array(
             "uri" => $uri_prefix."/collections/notifications/{$id}",
             "params" => array(
@@ -105,7 +84,7 @@ class MP {
      * Get information for specific authorized payment
      * @param id
      * @return array(json)
-    */    
+    */
     public function get_authorized_payment($id) {
         $request = array(
             "uri" => "/authorized_payments/{$id}",
@@ -190,7 +169,7 @@ class MP {
         $filters["limit"] = $limit;
 
         $uri_prefix = $this->sandbox ? "/sandbox" : "";
-            
+
         $request = array(
             "uri" => $uri_prefix."/collections/search",
             "params" => array_merge ($filters, array(
@@ -295,8 +274,8 @@ class MP {
      * Update a preapproval payment
      * @param string $preapproval_payment, $id
      * @return array(json)
-     */ 
-    
+     */
+
     public function update_preapproval_payment($id, $preapproval_payment) {
         $request = array(
             "uri" => "/preapproval/{$id}",
