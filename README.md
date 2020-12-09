@@ -43,14 +43,9 @@ Antes de configurar el APP ID y APP SECRET, ejecutar el siguiente comando:
 
 Despues de haber ejecutado el comando, ir al archivo `.env` y agregar los campos `MP_APP_ID` y `MP_APP_SECRET` con los correspondientes valores de los `CLIENT_ID` y `CLIENT_SECRET` de tu aplicacion de MercadoPago.
 
-Para saber cuales son tus datos `CLIENT_ID` y `CLIENT_SECRET` podes ingresar aqui, dependiendo de tu país: 
+Para saber cuales son tus datos `CLIENT_ID` y `CLIENT_SECRET` podes ingresar aqui: 
 
-* [Argentina](https://www.mercadopago.com/mla/herramientas/aplicaciones)
-* [Brazil](https://www.mercadopago.com/mlb/ferramentas/aplicacoes)
-* [Mexico](https://www.mercadopago.com/mlm/herramientas/aplicaciones)
-* [Venezuela](https://www.mercadopago.com/mlv/herramientas/aplicaciones)
-* [Colombia](https://www.mercadopago.com/mco/herramientas/aplicaciones)
-* [Chile](https://www.mercadopago.com/mlc/herramientas/aplicaciones)
+* [Credenciales](https://www.mercadopago.com/mla/account/credentials?type=basic)
 
 Si no deseas usar el archivo `.env`, ir a `config/mercadopago.php` y agregar tus datos de aplicación correspondientes.
 
