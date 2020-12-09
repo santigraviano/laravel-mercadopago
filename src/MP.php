@@ -40,6 +40,24 @@ class MP {
         }
     }
 
+    public function set_client_id($client_id)
+    {
+        $this->client_id = $client_id;
+        return $this;
+    }
+
+    public function set_client_secret($client_secret)
+    {
+        $this->client_secret = $client_secret;
+        return $this;
+    }
+
+    public function get_mp_connect_auth_url($redirectUri, $mpLocalize = "auth.mercadopago.com.br")
+    {
+        $redirectUri = urlencode($redirectUri);
+        return "https://{$mpLocalize}/authorization?client_id={$this->client_id}&response_type=code&platform_id=mp&redirect_uri={$redirectUri}";
+    }
+
     public function sandbox_mode($enable = NULL) {
         if (!is_null($enable)) {
             $this->sandbox = $enable === TRUE;
@@ -524,12 +542,15 @@ class MPRestClient {
                     $message .= " - ".$response['response']['cause']['code'].': '.$response['response']['cause']['description'];
                 } else if (is_array ($response['response']['cause'])) {
                     foreach ($response['response']['cause'] as $cause) {
-                        $message .= " - ".$cause['code'].': '.$cause['description'];
+                        if (isset($cause['code']) && isset($cause['description'])) {
+                            $message .= " - ".$cause['code'].': '.$cause['description'];
+                        } 
                     }
                 }
             }
-
-            throw new MercadoPagoException ($message, $response['status']);
+            
+            throw (new MercadoPagoException ($message, $response['status']))
+                ->setResponseBody($response['response']);
         }
 
         curl_close($connect);
@@ -575,8 +596,31 @@ class MPRestClient {
 }
 
 class MercadoPagoException extends Exception {
+    public $responseBody;
+
     public function __construct($message, $code = 500, Exception $previous = null) {
         // Default code 500
         parent::__construct($message, $code, $previous);
+    }
+
+    public function setResponseBody($response)
+    {
+        $this->responseBody = $response;
+        return $this;
+    }
+
+    public function getResponseBody()
+    {
+        return $this->responseBody;
+    }
+
+    public function getErrorCode() {
+        $message = $this->getMessage();
+        $startChar = '-';
+        $startPosition = strpos($message, $startChar);
+        $endPosition = strpos($message, ':');
+        $distance = $endPosition - $startPosition;
+        $numberString = trim(substr($message, $startPosition + strlen($startChar), $distance));
+        return (int) $numberString;
     }
 }
